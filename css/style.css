@@ -439,6 +439,10 @@ header .menu-nav > li > a:hover::before {
   margin: 0px;
 }
 
+.landing .intro-text h1 span {
+  color: var(--main-color);
+}
+
 @media (max-width: 767px) {
   .landing .intro-text h1 {
     font-size: 30px;

@@ -1,8 +1,57 @@
+window.onscroll = function () {
+  startCountOnScroll();
+  scroll();
+};
+
+function scroll() {
+  if (window.scrollY > 72) {
+    document.querySelector("header").classList.add("sticky__header");
+    if (window.scrollY > 350) {
+      document.querySelector("header").classList.add("scroll__header");
+    } else {
+      document.querySelector("header").classList.remove("scroll__header");
+    }
+  } else {
+    document.querySelector("header").classList.remove("sticky__header");
+  }
+}
+
+// Select all sections and nav links
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".menu-nav .nav-link");
+
+const options = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.5,
+};
+
+// IntersectionObserver callback function
+const observer = new IntersectionObserver((entries, observer) => {
+  debugger;
+  entries.forEach((entry) => {
+    const id = entry.target.id;
+    const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+    if (entry.isIntersecting) {
+      navLink.classList.add("active__Link");
+    } else {
+      navLink.classList.remove("active__Link");
+    }
+  });
+}, options);
+
+// Observe each section
+sections.forEach((section) => {
+  observer.observe(section);
+});
+
 // Open Mega Menu on click
 const menu = document.getElementById("menu");
-menu.addEventListener("click", function () {
+menu.addEventListener("click", function (e) {
+  e.preventDefault();
   const megaMenu = document.getElementById("mega-menu");
-  megaMenu.classList.toggle("active");
+  megaMenu.classList.toggle("show__MegaMenu");
 });
 
 // Fill Progress Bar on scroll
@@ -50,14 +99,15 @@ let statsSection = document.getElementById("stats");
 let nums = document.querySelectorAll(".number");
 let started = false;
 
-window.onscroll = function () {
+function startCountOnScroll() {
   if (window.scrollY >= statsSection.offsetTop) {
     if (!started) {
       nums.forEach((num) => startCount(num));
     }
     started = true;
   }
-};
+}
+
 function startCount(el) {
   let goal = el.dataset.goal;
   let count = setInterval(() => {

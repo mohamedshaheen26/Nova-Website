@@ -75,7 +75,7 @@ window.addEventListener("scroll", function () {
 });
 
 // CountDown Timer
-let countDownDate = new Date("Dec 31, 2023 23:59:59").getTime();
+let countDownDate = new Date("Dec 31, 2024 23:59:59").getTime();
 let counter = setInterval(function () {
   let now = new Date().getTime();
 
